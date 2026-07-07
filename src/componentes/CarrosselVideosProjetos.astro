@@ -1,0 +1,516 @@
+---
+import { getImage } from "astro:assets";
+import imagemSalaPainel from "../assets/imagens/sala-painel-sob-medida-joinville.jpeg";
+import imagemDormitorioBancada from "../assets/imagens/dormitorio-bancada-espelho-sob-medida-joinville.jpeg";
+import imagemCabeceiraDormitorio from "../assets/imagens/cabeceira-dormitorio-sob-medida-joinville.jpeg";
+import imagemArmarioEspelhado from "../assets/imagens/armario-espelhado-prateleiras-sob-medida-joinville.jpeg";
+import { videosProjetos } from "@dados/videos";
+
+const imagensPoster = {
+  "sala-painel": imagemSalaPainel,
+  "dormitorio-bancada": imagemDormitorioBancada,
+  "cabeceira-dormitorio": imagemCabeceiraDormitorio,
+  "armario-espelhado": imagemArmarioEspelhado,
+} as const;
+
+const videosComPoster = await Promise.all(
+  videosProjetos.map(async (video) => {
+    const poster = await getImage({
+      src: imagensPoster[video.poster],
+      width: 900,
+      format: "webp",
+    });
+
+    return {
+      titulo: video.titulo,
+      descricao: video.descricao,
+      arquivo: video.arquivo,
+      posterOtimizado: poster.src,
+    };
+  }),
+);
+
+const posicoesVideos = ["esquerda", "centro", "direita"] as const;
+const totalVideos = videosComPoster.length;
+const normalizarIndice = (indice: number) => (indice + totalVideos) % totalVideos;
+const slotsIniciais = [
+  { posicao: "esquerda", indice: normalizarIndice(-1) },
+  { posicao: "centro", indice: 0 },
+  { posicao: "direita", indice: normalizarIndice(1) },
+] as const;
+---
+
+<section
+  class="videos-projetos"
+  aria-labelledby="titulo-videos-projetos"
+  data-palco-videos-projetos
+>
+  <div class="videos-projetos__cabecalho">
+    <p class="videos-projetos__chamada">Videos dos projetos</p>
+    <h3 id="titulo-videos-projetos">Veja os detalhes de acabamento em movimento.</h3>
+  </div>
+
+  <div class="videos-projetos__janela">
+    <div class="videos-projetos__palco" aria-label="Videos de projetos reais">
+      {
+        slotsIniciais.map((slot) => {
+          const video = videosComPoster[slot.indice];
+          const ativo = slot.posicao === "centro";
+
+          return (
+            <article
+              class:list={[
+                "videos-projetos__cartao",
+                `videos-projetos__cartao--${slot.posicao}`,
+                ativo && "videos-projetos__cartao--ativo",
+              ]}
+              aria-current={ativo ? "true" : "false"}
+              data-video-cartao
+              data-video-posicao={slot.posicao}
+              data-video-indice={slot.indice}
+            >
+              <div class="videos-projetos__midia">
+                <video
+                  src={video.arquivo}
+                  poster={video.posterOtimizado}
+                  preload="metadata"
+                  muted
+                  loop
+                  playsinline
+                  width="720"
+                  height="1280"
+                  aria-label={`Video do projeto: ${video.titulo}`}
+                />
+              </div>
+
+              <div class="videos-projetos__texto">
+                <p data-video-numero>{String(slot.indice + 1).padStart(2, "0")}</p>
+                <h4 data-video-titulo>{video.titulo}</h4>
+                <span data-video-descricao>{video.descricao}</span>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+
+    <div class="videos-projetos__controles" aria-label="Controles dos videos">
+      <button
+        class="videos-projetos__seta videos-projetos__seta--anterior"
+        type="button"
+        data-palco-anterior
+        aria-label="Mostrar video anterior"
+      >
+        <span aria-hidden="true">&lsaquo;</span>
+      </button>
+      <button
+        class="videos-projetos__seta videos-projetos__seta--proximo"
+        type="button"
+        data-palco-proximo
+        aria-label="Mostrar proximo video"
+      >
+        <span aria-hidden="true">&rsaquo;</span>
+      </button>
+    </div>
+  </div>
+
+  <script type="application/json" data-videos-projetos-dados set:html={JSON.stringify(videosComPoster)} />
+</section>
+
+<script>
+  type VideoProjeto = {
+    titulo: string;
+    descricao: string;
+    arquivo: string;
+    posterOtimizado: string;
+  };
+
+  const palcosVideos = document.querySelectorAll<HTMLElement>("[data-palco-videos-projetos]");
+
+  palcosVideos.forEach((palco) => {
+    const dadosElemento = palco.querySelector<HTMLScriptElement>("[data-videos-projetos-dados]");
+    const cartoes = Array.from(palco.querySelectorAll<HTMLElement>("[data-video-cartao]"));
+    const botaoAnterior = palco.querySelector<HTMLButtonElement>("[data-palco-anterior]");
+    const botaoProximo = palco.querySelector<HTMLButtonElement>("[data-palco-proximo]");
+    const reduzirMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!dadosElemento?.textContent || cartoes.length !== 3 || !botaoAnterior || !botaoProximo) {
+      return;
+    }
+
+    const videos = JSON.parse(dadosElemento.textContent) as VideoProjeto[];
+
+    if (videos.length < 3) {
+      return;
+    }
+
+    let indiceAtivo = 0;
+
+    const normalizarIndice = (indice: number) => (indice + videos.length) % videos.length;
+
+    const indicesVisiveis = () => ({
+      esquerda: normalizarIndice(indiceAtivo - 1),
+      centro: normalizarIndice(indiceAtivo),
+      direita: normalizarIndice(indiceAtivo + 1),
+    });
+
+    const pausarVideosLaterais = () => {
+      cartoes.forEach((cartao) => {
+        if (cartao.dataset.videoPosicao === "centro") {
+          return;
+        }
+
+        cartao.querySelector("video")?.pause();
+      });
+    };
+
+    const atualizarCartao = (cartao: HTMLElement, indice: number) => {
+      const video = videos[indice];
+      const elementoVideo = cartao.querySelector("video");
+      const numero = cartao.querySelector<HTMLElement>("[data-video-numero]");
+      const titulo = cartao.querySelector<HTMLElement>("[data-video-titulo]");
+      const descricao = cartao.querySelector<HTMLElement>("[data-video-descricao]");
+      const ativo = cartao.dataset.videoPosicao === "centro";
+
+      if (!elementoVideo || !numero || !titulo || !descricao) {
+        return;
+      }
+
+      cartao.dataset.videoIndice = String(indice);
+      cartao.setAttribute("aria-current", ativo ? "true" : "false");
+      cartao.classList.toggle("videos-projetos__cartao--ativo", ativo);
+
+      elementoVideo.pause();
+      elementoVideo.src = video.arquivo;
+      elementoVideo.poster = video.posterOtimizado;
+      elementoVideo.setAttribute("aria-label", `Video do projeto: ${video.titulo}`);
+      elementoVideo.load();
+
+      numero.textContent = String(indice + 1).padStart(2, "0");
+      titulo.textContent = video.titulo;
+      descricao.textContent = video.descricao;
+    };
+
+    const aplicarEstado = () => {
+      const indices = indicesVisiveis();
+
+      cartoes.forEach((cartao) => {
+        const posicao = cartao.dataset.videoPosicao;
+
+        if (posicao !== "esquerda" && posicao !== "centro" && posicao !== "direita") {
+          return;
+        }
+
+        atualizarCartao(cartao, indices[posicao]);
+      });
+
+      pausarVideosLaterais();
+
+      if (!reduzirMovimento) {
+        const videoCentral = palco.querySelector<HTMLElement>('[data-video-posicao="centro"]')?.querySelector("video");
+        videoCentral?.play().catch(() => undefined);
+      }
+    };
+
+    botaoAnterior.addEventListener("click", () => {
+      indiceAtivo = normalizarIndice(indiceAtivo - 1);
+      aplicarEstado();
+    });
+
+    botaoProximo.addEventListener("click", () => {
+      indiceAtivo = normalizarIndice(indiceAtivo + 1);
+      aplicarEstado();
+    });
+
+    aplicarEstado();
+  });
+</script>
+
+<style>
+  .videos-projetos {
+    --largura-video-centro: clamp(290px, 23vw, 350px);
+    --escala-lateral: 0.72;
+    --gap-palco: clamp(8px, 2.2vw, 34px);
+
+    margin-top: 34px;
+    border-top: 1px solid rgb(11 49 90 / 12%);
+    padding-top: 28px;
+  }
+
+  .videos-projetos__cabecalho {
+    width: min(100%, 720px);
+    margin: 0 auto 22px;
+  }
+
+  .videos-projetos__chamada {
+    margin: 0 0 10px;
+    color: var(--cor-madeira-600);
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .videos-projetos h3 {
+    max-width: 18ch;
+    margin: 0 auto;
+    color: var(--cor-azul-900);
+    font-family: var(--fonte-titulo);
+    font-size: clamp(1.85rem, 6vw, 2.9rem);
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    overflow-wrap: break-word;
+  }
+
+  .videos-projetos__janela {
+    position: relative;
+    width: min(100%, 1040px);
+    margin: 0 auto;
+    overflow: visible;
+  }
+
+  .videos-projetos__palco {
+    display: grid;
+    grid-template-columns:
+      calc(var(--largura-video-centro) * var(--escala-lateral))
+      var(--largura-video-centro)
+      calc(var(--largura-video-centro) * var(--escala-lateral));
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-palco);
+    width: 100%;
+  }
+
+  .videos-projetos__cartao {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    justify-self: center;
+    border-radius: var(--raio-card);
+    background: var(--cor-azul-900);
+    box-shadow: 0 18px 54px rgb(11 49 90 / 14%);
+    opacity: 0.58;
+    transform-origin: center;
+    transition:
+      opacity 220ms ease,
+      transform 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .videos-projetos__cartao--esquerda,
+  .videos-projetos__cartao--direita {
+    max-width: calc(var(--largura-video-centro) * var(--escala-lateral));
+    transform: scale(0.96);
+  }
+
+  .videos-projetos__cartao--centro {
+    z-index: 2;
+    max-width: var(--largura-video-centro);
+    opacity: 1;
+    box-shadow: 0 26px 80px rgb(11 49 90 / 24%);
+  }
+
+  .videos-projetos__midia {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    background: var(--cor-neutro-200);
+  }
+
+  .videos-projetos__cartao--centro .videos-projetos__midia {
+    width: 100%;
+  }
+
+  .videos-projetos__cartao--esquerda .videos-projetos__midia,
+  .videos-projetos__cartao--direita .videos-projetos__midia {
+    width: 100%;
+  }
+
+  .videos-projetos__midia::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 40%;
+    background: linear-gradient(180deg, rgb(11 49 90 / 0%) 0%, rgb(11 49 90 / 82%) 100%);
+    pointer-events: none;
+  }
+
+  .videos-projetos__midia video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: var(--cor-neutro-200);
+  }
+
+  .videos-projetos__texto {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 2;
+    padding: 16px;
+    color: var(--cor-branco);
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
+  }
+
+  .videos-projetos__cartao--ativo .videos-projetos__texto {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .videos-projetos__texto p {
+    margin: 0 0 8px;
+    color: rgb(255 255 255 / 78%);
+    font-size: 0.78rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .videos-projetos h4 {
+    margin: 0;
+    color: var(--cor-branco);
+    font-size: 1.08rem;
+    line-height: 1.2;
+  }
+
+  .videos-projetos__texto span {
+    display: block;
+    margin-top: 8px;
+    color: rgb(255 255 255 / 82%);
+    font-size: 0.93rem;
+    line-height: 1.45;
+  }
+
+  .videos-projetos__controles {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .videos-projetos__seta {
+    position: absolute;
+    top: 50%;
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgb(255 255 255 / 70%);
+    border-radius: 999px;
+    padding: 0;
+    background: rgb(255 255 255 / 94%);
+    color: var(--cor-azul-900);
+    cursor: pointer;
+    box-shadow: 0 18px 44px rgb(11 49 90 / 22%);
+    pointer-events: auto;
+    transition:
+      background 180ms ease,
+      border-color 180ms ease,
+      color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .videos-projetos__seta span {
+    display: block;
+    margin-top: -4px;
+    font-family: var(--fonte-titulo);
+    font-size: 3.15rem;
+    font-weight: 700;
+    line-height: 0.7;
+  }
+
+  .videos-projetos__seta:hover {
+    border-color: var(--cor-madeira-600);
+    background: var(--cor-azul-900);
+    color: var(--cor-branco);
+  }
+
+  .videos-projetos__seta--anterior {
+    left: calc(50% - (var(--largura-video-centro) / 2) - 18px);
+    transform: translate(-50%, -50%);
+  }
+
+  .videos-projetos__seta--anterior:hover {
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+
+  .videos-projetos__seta--proximo {
+    right: calc(50% - (var(--largura-video-centro) / 2) - 18px);
+    transform: translate(50%, -50%);
+  }
+
+  .videos-projetos__seta--proximo:hover {
+    transform: translate(50%, -50%) scale(1.04);
+  }
+
+  @media (max-width: 720px) {
+    .videos-projetos {
+      --largura-video-centro: min(46vw, calc((100vw - 40px) / 2));
+      --escala-lateral: 0.5;
+      --gap-palco: 8px;
+
+      margin-top: 28px;
+      padding-top: 24px;
+    }
+
+    .videos-projetos__cabecalho {
+      margin-bottom: 18px;
+    }
+
+    .videos-projetos h3 {
+      max-width: 14ch;
+      font-size: clamp(1.8rem, 8vw, 2.45rem);
+    }
+
+    .videos-projetos__palco {
+      grid-template-columns:
+        calc(var(--largura-video-centro) * var(--escala-lateral))
+        var(--largura-video-centro)
+        calc(var(--largura-video-centro) * var(--escala-lateral));
+    }
+
+    .videos-projetos__seta {
+      width: 46px;
+      height: 46px;
+    }
+
+    .videos-projetos__seta--anterior {
+      left: max(22px, calc(50% - (var(--largura-video-centro) / 2) - 2px));
+    }
+
+    .videos-projetos__seta--proximo {
+      right: max(22px, calc(50% - (var(--largura-video-centro) / 2) - 2px));
+    }
+
+    .videos-projetos__texto {
+      padding: 12px;
+    }
+
+    .videos-projetos h4 {
+      font-size: 0.95rem;
+    }
+
+    .videos-projetos__texto span {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1080px) {
+    .videos-projetos {
+      --largura-video-centro: clamp(320px, 23vw, 365px);
+
+      margin-top: 40px;
+      padding-top: 30px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .videos-projetos__cartao,
+    .videos-projetos__seta,
+    .videos-projetos__texto {
+      transition: none;
+    }
+  }
+</style>

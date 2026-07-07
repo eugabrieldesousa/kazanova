@@ -1,0 +1,195 @@
+---
+import { Image } from "astro:assets";
+import logoKazanova from "../assets/imagens/logo-kazanova.png";
+import { empresa } from "@dados/empresa";
+
+const linksRodape = [
+  { texto: "Inicio", href: "/" },
+  { texto: "Sobre", href: "/#sobre" },
+  { texto: "Ambientes", href: "/#ambientes" },
+  { texto: "Projetos", href: "/#projetos" },
+  { texto: "Contato", href: "/contato" },
+] as const;
+---
+
+<footer class="rodape">
+  <div class="rodape__conteudo">
+    <div class="rodape__marca">
+      <a class="rodape__logo" href="/" aria-label={`${empresa.nome} - pagina inicial`}>
+        <Image
+          src={logoKazanova}
+          alt="Kazanova Sob Medida"
+          width={246}
+          height={82}
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
+      <p>
+        Moveis sob medida em Joinville e regiao, com fabricacao propria, projetos personalizados
+        e acabamento cuidadoso para cada ambiente.
+      </p>
+      <a class="rodape__cta" href={empresa.linkWhatsappOrcamento} target="_blank" rel="noopener noreferrer">
+        Solicitar orcamento
+      </a>
+    </div>
+
+    <nav class="rodape__navegacao" aria-label="Navegacao do rodape">
+      <h2>Navegacao</h2>
+      {linksRodape.map((link) => <a href={link.href}>{link.texto}</a>)}
+    </nav>
+
+    <address class="rodape__contato">
+      <h2>Contato</h2>
+      <a href={empresa.linkWhatsappOrcamento} target="_blank" rel="noopener noreferrer">
+        WhatsApp: {empresa.telefoneWhatsapp}
+      </a>
+      <a href={empresa.linkInstagram} target="_blank" rel="noopener noreferrer">
+        Instagram: {empresa.instagram}
+      </a>
+      <a href={empresa.linkMapa} target="_blank" rel="noopener noreferrer">
+        {empresa.endereco}
+      </a>
+      <span>{empresa.regiaoAtendida}</span>
+    </address>
+  </div>
+
+  <div class="rodape__base">
+    <p>{empresa.nome} - {empresa.segmento}</p>
+  </div>
+</footer>
+
+<style>
+  .rodape {
+    background: var(--cor-azul-900);
+    color: var(--cor-branco);
+  }
+
+  .rodape__conteudo {
+    width: calc(100% - 32px);
+    max-width: var(--largura-conteudo);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 34px;
+    padding: 48px 0 34px;
+  }
+
+  .rodape__marca {
+    min-width: 0;
+    max-width: 520px;
+  }
+
+  .rodape__logo {
+    width: fit-content;
+    min-height: 52px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .rodape__logo img {
+    width: clamp(156px, 38vw, 210px);
+    height: auto;
+  }
+
+  .rodape__marca p {
+    margin: 20px 0 0;
+    color: rgb(255 255 255 / 78%);
+    line-height: 1.7;
+    overflow-wrap: break-word;
+  }
+
+  .rodape__cta {
+    max-width: 100%;
+    min-height: 48px;
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 22px;
+    border: 1px solid rgb(255 255 255 / 46%);
+    border-radius: 8px;
+    padding: 0 20px;
+    color: var(--cor-branco);
+    font-weight: 800;
+    transition:
+      background 180ms ease,
+      border-color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .rodape__cta:hover {
+    background: rgb(255 255 255 / 10%);
+    border-color: rgb(255 255 255 / 72%);
+    transform: translateY(-1px);
+  }
+
+  .rodape__navegacao,
+  .rodape__contato {
+    min-width: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .rodape h2 {
+    margin: 0 0 6px;
+    color: var(--cor-branco);
+    font-size: 0.88rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .rodape__navegacao a,
+  .rodape__contato a,
+  .rodape__contato span {
+    max-width: 100%;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    color: rgb(255 255 255 / 78%);
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+
+  .rodape__navegacao a,
+  .rodape__contato a {
+    transition: color 180ms ease;
+  }
+
+  .rodape__navegacao a:hover,
+  .rodape__contato a:hover {
+    color: var(--cor-branco);
+  }
+
+  .rodape__contato {
+    font-style: normal;
+  }
+
+  .rodape__base {
+    border-top: 1px solid rgb(255 255 255 / 12%);
+  }
+
+  .rodape__base p {
+    width: calc(100% - 32px);
+    max-width: var(--largura-conteudo);
+    margin: 0 auto;
+    padding: 18px 0;
+    color: rgb(255 255 255 / 64%);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 520px) {
+    .rodape__cta {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 760px) {
+    .rodape__conteudo {
+      grid-template-columns: minmax(0, 1.3fr) minmax(160px, 0.45fr) minmax(260px, 0.75fr);
+      gap: 42px;
+      padding-top: 56px;
+    }
+  }
+</style>

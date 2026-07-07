@@ -1,0 +1,80 @@
+@import "./variaveis.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color: var(--cor-neutro-950);
+  background: var(--cor-branco);
+  font-family: var(--fonte-texto);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 3px solid var(--cor-foco);
+  outline-offset: 4px;
+}
+
+.link-pular {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  transform: translateY(-140%);
+  border-radius: 999px;
+  background: var(--cor-branco);
+  color: var(--cor-azul-900);
+  padding: 10px 16px;
+  font-weight: 700;
+  box-shadow: var(--sombra-suave);
+  transition: transform 160ms ease;
+}
+
+.link-pular:focus {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,26 @@
+:root {
+  --cor-azul-900: #0b315a;
+  --cor-azul-800: #12436f;
+  --cor-madeira-600: #9a5b2f;
+  --cor-madeira-500: #b8753e;
+  --cor-neutro-950: #111827;
+  --cor-neutro-700: #374151;
+  --cor-neutro-200: #e5e7eb;
+  --cor-neutro-100: #f4f5f7;
+  --cor-branco: #ffffff;
+  --cor-foco: #d8a15f;
+
+  --fonte-texto: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --fonte-titulo: Georgia, "Times New Roman", serif;
+
+  --sombra-suave: 0 24px 70px rgb(11 49 90 / 16%);
+  --largura-conteudo: 1180px;
+  --raio-card: 8px;
+  --altura-cabecalho: 76px;
+}
+
+@media (min-width: 920px) {
+  :root {
+    --altura-cabecalho: 86px;
+  }
+}

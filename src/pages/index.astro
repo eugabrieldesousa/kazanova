@@ -1,0 +1,26 @@
+---
+import Cabecalho from "@componentes/Cabecalho.astro";
+import Rodape from "@componentes/Rodape.astro";
+import SecaoAmbientes from "@componentes/SecaoAmbientes.astro";
+import SecaoContato from "@componentes/SecaoContato.astro";
+import SecaoHero from "@componentes/SecaoHero.astro";
+import SecaoProjetos from "@componentes/SecaoProjetos.astro";
+import SecaoSobre from "@componentes/SecaoSobre.astro";
+import LayoutPrincipal from "../layouts/LayoutPrincipal.astro";
+
+const titulo = "Moveis sob medida em Joinville | Kazanova";
+const descricao =
+  "Marcenaria em Joinville com fabricacao propria e moveis sob medida para salas, dormitorios, cozinhas e ambientes personalizados.";
+---
+
+<LayoutPrincipal titulo={titulo} descricao={descricao}>
+  <Cabecalho />
+  <main id="conteudo-principal">
+    <SecaoHero />
+    <SecaoSobre />
+    <SecaoAmbientes />
+    <SecaoProjetos />
+    <SecaoContato />
+  </main>
+  <Rodape />
+</LayoutPrincipal>

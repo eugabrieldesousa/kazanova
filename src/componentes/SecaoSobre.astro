@@ -1,0 +1,373 @@
+---
+import { Image } from "astro:assets";
+import imagemSobre from "../assets/imagens/dormitorio-bancada-espelho-sob-medida-joinville.jpeg";
+import { empresa } from "@dados/empresa";
+import { sobreEmpresa } from "@dados/sobre";
+---
+
+<section class="sobre" id="sobre" aria-labelledby="titulo-sobre">
+  <div class="sobre__conteudo">
+    <div class="sobre__midia">
+      <Image
+        src={imagemSobre}
+        alt="Dormitorio com bancada, painel de TV e espelho iluminado feitos sob medida pela Kazanova em Joinville"
+        widths={[420, 640, 820, 1040]}
+        sizes="(min-width: 980px) 42vw, 100vw"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <div class="sobre__texto">
+      <p class="sobre__chamada">{sobreEmpresa.chamada}</p>
+      <h2 id="titulo-sobre">{sobreEmpresa.titulo}</h2>
+      <p>{sobreEmpresa.descricao}</p>
+      <p>{sobreEmpresa.complemento}</p>
+
+      <dl class="sobre__destaques" aria-label="Credenciais da Kazanova Sob Medida">
+        {
+          sobreEmpresa.destaques.map((destaque) => (
+            <div>
+              <dt>{destaque.valor}</dt>
+              <dd>{destaque.rotulo}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <ul class="sobre__lista" aria-label="Diferenciais da marcenaria">
+        {sobreEmpresa.diferenciais.map((diferencial) => <li>{diferencial}</li>)}
+      </ul>
+
+      <div class="sobre__acoes" aria-label="Acoes da secao sobre">
+        <a class="sobre__botao sobre__botao--principal" href={empresa.linkWhatsappOrcamento} target="_blank" rel="noopener noreferrer">
+          Solicitar orcamento
+        </a>
+        <a class="sobre__botao sobre__botao--secundario" href={empresa.linkInstagram} target="_blank" rel="noopener noreferrer">
+          Ver Instagram
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sobre {
+    background: var(--cor-branco);
+    scroll-margin-top: var(--altura-cabecalho);
+  }
+
+  .sobre__conteudo {
+    width: min(calc(100% - 32px), var(--largura-conteudo));
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 72px 0;
+  }
+
+  .sobre__midia {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--raio-card);
+    aspect-ratio: 4 / 5;
+    background: var(--cor-neutro-100);
+    box-shadow: var(--sombra-suave);
+  }
+
+  .sobre__midia::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgb(255 255 255 / 42%);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .sobre__midia :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .sobre__texto {
+    align-self: center;
+  }
+
+  .sobre__chamada {
+    margin: 0 0 12px;
+    color: var(--cor-madeira-600);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .sobre h2 {
+    max-width: 12ch;
+    margin: 0;
+    color: var(--cor-azul-900);
+    font-family: var(--fonte-titulo);
+    font-size: clamp(2rem, 9vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.04;
+    overflow-wrap: break-word;
+  }
+
+  .sobre p {
+    max-width: 650px;
+    margin: 18px 0 0;
+    color: var(--cor-neutro-700);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .sobre__destaques {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin: 28px 0 0;
+  }
+
+  .sobre__destaques div {
+    border-left: 3px solid var(--cor-madeira-500);
+    padding: 2px 0 2px 14px;
+  }
+
+  .sobre__destaques dt {
+    color: var(--cor-azul-900);
+    font-size: 1.05rem;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  .sobre__destaques dd {
+    margin: 6px 0 0;
+    color: var(--cor-neutro-700);
+    line-height: 1.5;
+  }
+
+  .sobre__lista {
+    display: grid;
+    gap: 10px;
+    margin: 28px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sobre__lista li {
+    position: relative;
+    min-height: 32px;
+    padding-left: 32px;
+    color: var(--cor-neutro-950);
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .sobre__lista li::before {
+    content: "";
+    position: absolute;
+    top: 0.45em;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    border: 4px solid rgb(184 117 62 / 24%);
+    border-radius: 999px;
+    background: var(--cor-madeira-600);
+    background-clip: content-box;
+  }
+
+  .sobre__acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .sobre__botao {
+    min-height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 0 22px;
+    font-weight: 800;
+    transition:
+      background 180ms ease,
+      border-color 180ms ease,
+      color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .sobre__botao:hover {
+    transform: translateY(-1px);
+  }
+
+  .sobre__botao--principal {
+    background: var(--cor-azul-900);
+    color: var(--cor-branco);
+  }
+
+  .sobre__botao--principal:hover {
+    background: var(--cor-azul-800);
+  }
+
+  .sobre__botao--secundario {
+    border: 1px solid var(--cor-azul-900);
+    color: var(--cor-azul-900);
+    background: var(--cor-branco);
+  }
+
+  .sobre__botao--secundario:hover {
+    border-color: var(--cor-madeira-600);
+    color: var(--cor-madeira-600);
+  }
+
+  @media (max-width: 520px) {
+    .sobre__conteudo {
+      padding: 56px 0;
+    }
+
+    .sobre__acoes {
+      flex-direction: column;
+    }
+
+    .sobre__botao {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 720px) {
+    .sobre__destaques {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 980px) {
+    .sobre {
+      min-height: calc(100dvh - var(--altura-cabecalho) - 1px);
+      display: grid;
+      align-items: center;
+    }
+
+    .sobre__conteudo {
+      min-height: calc(100dvh - var(--altura-cabecalho) - 1px);
+      align-items: center;
+      grid-template-columns: minmax(360px, 0.86fr) minmax(0, 1.14fr);
+      gap: clamp(40px, 5vw, 72px);
+      padding: clamp(32px, 5vh, 56px) 0;
+    }
+
+    .sobre__midia {
+      height: clamp(460px, calc(100dvh - var(--altura-cabecalho) - 96px), 620px);
+      min-height: 0;
+      aspect-ratio: auto;
+    }
+
+    .sobre h2 {
+      max-width: 16ch;
+      font-size: clamp(2.9rem, 3.5vw, 3.85rem);
+      line-height: 1;
+    }
+
+    .sobre p {
+      margin-top: 14px;
+      line-height: 1.58;
+    }
+
+    .sobre__destaques {
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .sobre__destaques div {
+      padding-left: 12px;
+    }
+
+    .sobre__destaques dt {
+      font-size: 1rem;
+    }
+
+    .sobre__destaques dd {
+      margin-top: 5px;
+      font-size: 0.95rem;
+    }
+
+    .sobre__lista {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .sobre__lista li {
+      min-height: 0;
+      padding-left: 24px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .sobre__lista li::before {
+      width: 12px;
+      height: 12px;
+      border-width: 3px;
+    }
+
+    .sobre__acoes {
+      margin-top: 22px;
+    }
+  }
+
+  @media (min-width: 980px) and (max-height: 820px) {
+    .sobre__conteudo {
+      gap: clamp(32px, 4vw, 56px);
+      padding: 18px 0;
+    }
+
+    .sobre__midia {
+      height: clamp(420px, calc(100dvh - var(--altura-cabecalho) - 48px), 560px);
+    }
+
+    .sobre__chamada {
+      margin-bottom: 8px;
+      font-size: 0.74rem;
+    }
+
+    .sobre h2 {
+      max-width: 17ch;
+      font-size: clamp(2.55rem, 3.2vw, 3.25rem);
+      line-height: 0.98;
+    }
+
+    .sobre p {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+
+    .sobre__destaques {
+      margin-top: 16px;
+    }
+
+    .sobre__destaques dd {
+      font-size: 0.9rem;
+      line-height: 1.35;
+    }
+
+    .sobre__lista {
+      margin-top: 16px;
+    }
+
+    .sobre__lista li {
+      font-size: 0.88rem;
+      line-height: 1.3;
+    }
+
+    .sobre__acoes {
+      margin-top: 16px;
+    }
+
+    .sobre__botao {
+      min-height: 46px;
+    }
+  }
+</style>

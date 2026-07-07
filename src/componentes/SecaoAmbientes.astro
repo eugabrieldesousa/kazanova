@@ -1,0 +1,305 @@
+---
+import { Image } from "astro:assets";
+import imagemCozinhaSobMedida from "../assets/imagens/cozinha-sob-medida-joinville.png";
+import imagemSalaPainel from "../assets/imagens/sala-painel-sob-medida-joinville.jpeg";
+import imagemDormitorioBancada from "../assets/imagens/dormitorio-bancada-espelho-sob-medida-joinville.jpeg";
+import imagemArmarioEspelhado from "../assets/imagens/armario-espelhado-prateleiras-sob-medida-joinville.jpeg";
+import { ambientes } from "@dados/ambientes";
+import { empresa } from "@dados/empresa";
+
+const imagensAmbientes = {
+  "cozinha-sob-medida": imagemCozinhaSobMedida,
+  "sala-painel": imagemSalaPainel,
+  "dormitorio-bancada": imagemDormitorioBancada,
+  "armario-espelhado": imagemArmarioEspelhado,
+} as const;
+---
+
+<section class="ambientes" id="ambientes" aria-labelledby="titulo-ambientes">
+  <div class="ambientes__conteudo">
+    <div class="ambientes__cabecalho">
+      <div>
+        <p class="ambientes__chamada">Ambientes sob medida</p>
+        <h2 id="titulo-ambientes">Moveis para cada parte da sua casa.</h2>
+      </div>
+
+      <div class="ambientes__introducao">
+        <p>
+          Da primeira ideia ate a instalacao, cada ambiente e planejado para unir beleza,
+          uso diario e acabamento de marcenaria propria em Joinville e regiao.
+        </p>
+        <a href={empresa.linkWhatsappOrcamento} target="_blank" rel="noopener noreferrer">Solicitar orcamento</a>
+      </div>
+    </div>
+
+    <div class="ambientes__grade" aria-label="Ambientes atendidos pela Kazanova Sob Medida">
+      {
+        ambientes.map((ambiente, indice) => {
+          const imagemAmbiente = ambiente.imagem ? imagensAmbientes[ambiente.imagem] : undefined;
+
+          return (
+            <article class:list={["ambientes__cartao", !imagemAmbiente && "ambientes__cartao--sem-imagem"]}>
+              <div class="ambientes__numero" aria-hidden="true">{String(indice + 1).padStart(2, "0")}</div>
+
+              {imagemAmbiente && (
+                <div class="ambientes__imagem">
+                  <Image
+                    src={imagemAmbiente}
+                    alt={`${ambiente.nome} feito pela Kazanova Sob Medida em Joinville`}
+                    widths={[320, 480, 640, 820]}
+                    sizes="(min-width: 980px) 25vw, (min-width: 720px) 50vw, 100vw"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              )}
+
+              <div class="ambientes__informacoes">
+                <p>{ambiente.chamada}</p>
+                <h3>{ambiente.nome}</h3>
+                <span>{ambiente.resumo}</span>
+                <ul aria-label={`Solucoes para ${ambiente.nome}`}>
+                  {ambiente.detalhes.map((detalhe) => <li>{detalhe}</li>)}
+                </ul>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .ambientes {
+    background: var(--cor-azul-900);
+    color: var(--cor-branco);
+    scroll-margin-top: var(--altura-cabecalho);
+  }
+
+  .ambientes__conteudo {
+    width: min(calc(100% - 32px), var(--largura-conteudo));
+    margin: 0 auto;
+    padding: 72px 0;
+  }
+
+  .ambientes__cabecalho {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    margin-bottom: 32px;
+  }
+
+  .ambientes__chamada {
+    margin: 0 0 12px;
+    color: rgb(255 255 255 / 78%);
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .ambientes h2 {
+    max-width: 12ch;
+    margin: 0;
+    color: var(--cor-branco);
+    font-family: var(--fonte-titulo);
+    font-size: clamp(2rem, 9vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.04;
+    overflow-wrap: break-word;
+  }
+
+  .ambientes__introducao {
+    max-width: 570px;
+    align-self: end;
+  }
+
+  .ambientes__introducao p {
+    margin: 0;
+    color: rgb(255 255 255 / 82%);
+    line-height: 1.65;
+  }
+
+  .ambientes__introducao a {
+    min-height: 50px;
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    border-radius: 8px;
+    padding: 0 22px;
+    background: var(--cor-branco);
+    color: var(--cor-azul-900);
+    font-weight: 900;
+    transition:
+      background 180ms ease,
+      color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .ambientes__introducao a:hover {
+    background: var(--cor-madeira-500);
+    color: var(--cor-branco);
+    transform: translateY(-1px);
+  }
+
+  .ambientes__grade {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .ambientes__cartao {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    border: 1px solid rgb(255 255 255 / 16%);
+    border-radius: var(--raio-card);
+    background: var(--cor-branco);
+    color: var(--cor-neutro-950);
+    box-shadow: 0 18px 48px rgb(0 0 0 / 16%);
+  }
+
+  .ambientes__numero {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 2;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid rgb(255 255 255 / 48%);
+    border-radius: 8px;
+    background: rgb(11 49 90 / 84%);
+    color: var(--cor-branco);
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .ambientes__imagem {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--cor-neutro-200);
+  }
+
+  .ambientes__imagem :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 240ms ease;
+  }
+
+  .ambientes__cartao:hover .ambientes__imagem :global(img) {
+    transform: scale(1.025);
+  }
+
+  .ambientes__informacoes {
+    display: flex;
+    flex-direction: column;
+    padding: 22px;
+  }
+
+  .ambientes__cartao--sem-imagem .ambientes__informacoes {
+    min-height: 300px;
+    padding-top: 76px;
+    background:
+      linear-gradient(180deg, rgb(11 49 90 / 4%), rgb(11 49 90 / 0%)),
+      var(--cor-branco);
+  }
+
+  .ambientes__informacoes p {
+    margin: 0 0 10px;
+    color: var(--cor-madeira-600);
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .ambientes h3 {
+    margin: 0;
+    color: var(--cor-azul-900);
+    font-size: clamp(1.25rem, 4vw, 1.55rem);
+    line-height: 1.15;
+  }
+
+  .ambientes__informacoes span {
+    display: block;
+    margin-top: 12px;
+    color: var(--cor-neutro-700);
+    line-height: 1.58;
+  }
+
+  .ambientes__informacoes ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: auto 0 0;
+    padding: 18px 0 0;
+    list-style: none;
+  }
+
+  .ambientes__informacoes li {
+    border: 1px solid rgb(11 49 90 / 14%);
+    border-radius: 999px;
+    padding: 8px 10px;
+    background: var(--cor-neutro-100);
+    color: var(--cor-azul-900);
+    font-size: 0.86rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  @media (max-width: 520px) {
+    .ambientes__conteudo {
+      padding: 56px 0;
+    }
+
+    .ambientes__introducao a {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 720px) {
+    .ambientes__grade {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 980px) {
+    .ambientes__conteudo {
+      padding: 76px 0;
+    }
+
+    .ambientes__cabecalho {
+      grid-template-columns: minmax(0, 0.95fr) minmax(360px, 0.7fr);
+      align-items: end;
+      gap: 48px;
+      margin-bottom: 36px;
+    }
+
+    .ambientes h2 {
+      max-width: 16ch;
+      font-size: clamp(2.75rem, 3.2vw, 3.65rem);
+      line-height: 1;
+    }
+
+    .ambientes__grade {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .ambientes__cartao {
+      min-height: 510px;
+    }
+
+    .ambientes__imagem {
+      aspect-ratio: 4 / 3.25;
+    }
+
+    .ambientes__informacoes {
+      padding: 20px;
+    }
+  }
+</style>

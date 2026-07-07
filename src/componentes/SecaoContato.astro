@@ -1,0 +1,461 @@
+---
+import { empresa } from "@dados/empresa";
+
+interface Props {
+  tituloPrincipal?: boolean;
+}
+
+const { tituloPrincipal = false } = Astro.props;
+---
+
+<section class:list={["contato", tituloPrincipal && "contato--pagina"]} id="contato" aria-labelledby="titulo-contato">
+  <div class="contato__conteudo">
+    <div class="contato__texto">
+      <p class="contato__chamada">Contato e orcamento</p>
+      {
+        tituloPrincipal ? (
+          <h1 id="titulo-contato">Fale com a Kazanova Sob Medida em Joinville.</h1>
+        ) : (
+          <h2 id="titulo-contato">Vamos conversar sobre o seu projeto?</h2>
+        )
+      }
+      <p class="contato__descricao">
+        Atendemos Joinville e regiao com moveis sob medida, fabricacao propria e projetos pensados para
+        o espaco real da sua casa. Envie uma mensagem pelo WhatsApp e conte qual ambiente voce quer fazer.
+      </p>
+
+      <div class="contato__acoes" aria-label="Canais de contato da Kazanova Sob Medida">
+        <a class="contato__botao contato__botao--principal" href={empresa.linkWhatsappOrcamento} target="_blank" rel="noopener noreferrer">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+            <path d="M12.04 2a9.84 9.84 0 0 0-8.5 14.79L2 22l5.35-1.4A9.98 9.98 0 1 0 12.04 2Zm0 17.98a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.18.83.85-3.1-.2-.32a8.13 8.13 0 1 1 6.96 3.9Zm4.46-6.08c-.25-.12-1.45-.72-1.68-.8-.22-.08-.38-.12-.55.12-.16.25-.63.8-.77.97-.14.16-.28.18-.53.06-.24-.12-1.03-.38-1.96-1.21a7.4 7.4 0 0 1-1.36-1.7c-.14-.24-.01-.37.1-.5.11-.11.25-.28.37-.42.12-.14.16-.24.24-.4.08-.17.04-.31-.02-.43-.06-.12-.55-1.32-.75-1.8-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.42.06-.65.3-.22.25-.85.84-.85 2.04 0 1.2.87 2.36 1 2.52.11.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.19 1.11.16 1.53.1.47-.07 1.45-.6 1.66-1.17.2-.58.2-1.07.14-1.17-.06-.1-.22-.16-.46-.28Z" fill="currentColor" />
+          </svg>
+          Falar no WhatsApp
+        </a>
+        <a class="contato__botao contato__botao--secundario" href={empresa.linkMapa} target="_blank" rel="noopener noreferrer">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+            <path d="M12 21s6-5.33 6-12a6 6 0 1 0-12 0c0 6.67 6 12 6 12Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" />
+            <circle cx="12" cy="9" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8" />
+          </svg>
+          Abrir rota no mapa
+        </a>
+        <a
+          class="contato__botao contato__botao--instagram"
+          href={empresa.linkInstagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Ver Instagram da ${empresa.nome}`}
+          title="Ver Instagram"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="23" height="23">
+            <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" />
+            <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" />
+            <circle cx="17.4" cy="6.7" r="1" fill="currentColor" />
+          </svg>
+        </a>
+      </div>
+
+      <dl class="contato__informacoes" aria-label="Informacoes de contato">
+        <div>
+          <dt>WhatsApp</dt>
+          <dd>
+            <a href={empresa.linkWhatsappOrcamento} target="_blank" rel="noopener noreferrer">{empresa.telefoneWhatsapp}</a>
+          </dd>
+        </div>
+        <div>
+          <dt>Instagram</dt>
+          <dd>
+            <a href={empresa.linkInstagram} target="_blank" rel="noopener noreferrer">{empresa.instagram}</a>
+          </dd>
+        </div>
+        <div>
+          <dt>Endereco</dt>
+          <dd>{empresa.endereco}</dd>
+        </div>
+        <div>
+          <dt>Atendimento</dt>
+          <dd>{empresa.regiaoAtendida}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="contato__localizacao">
+      <div class="contato__mapa" aria-label={`Mapa com localizacao da ${empresa.nome}`}>
+        <iframe
+          title={`Mapa da ${empresa.nome} em Joinville`}
+          src={empresa.linkMapaEmbed}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="contato__mapa-detalhes">
+        <span class="contato__icone-local" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22">
+            <path d="M12 21s6-5.33 6-12a6 6 0 1 0-12 0c0 6.67 6 12 6 12Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" />
+            <circle cx="12" cy="9" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8" />
+          </svg>
+        </span>
+        <div>
+          <strong>{empresa.nomeNoMapa}</strong>
+          <span>{empresa.endereco}</span>
+        </div>
+        <a href={empresa.linkMapa} target="_blank" rel="noopener noreferrer">Como chegar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contato {
+    background:
+      linear-gradient(90deg, rgb(11 49 90 / 4%) 1px, transparent 1px),
+      linear-gradient(rgb(11 49 90 / 4%) 1px, transparent 1px),
+      var(--cor-branco);
+    background-size: 40px 40px;
+    scroll-margin-top: var(--altura-cabecalho);
+  }
+
+  .contato--pagina {
+    background:
+      linear-gradient(180deg, rgb(11 49 90 / 5%), rgb(11 49 90 / 0%) 280px),
+      var(--cor-branco);
+  }
+
+  .contato__conteudo {
+    width: calc(100% - 32px);
+    max-width: var(--largura-conteudo);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 80px 0;
+  }
+
+  .contato--pagina .contato__conteudo {
+    padding-top: 56px;
+  }
+
+  .contato__texto {
+    min-width: 0;
+    align-self: center;
+  }
+
+  .contato__texto::before {
+    content: "";
+    width: 48px;
+    height: 4px;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 999px;
+    background: var(--cor-madeira-500);
+  }
+
+  .contato__chamada {
+    margin: 0 0 12px;
+    color: var(--cor-madeira-600);
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .contato h1,
+  .contato h2 {
+    max-width: 13ch;
+    margin: 0;
+    color: var(--cor-azul-900);
+    font-family: var(--fonte-titulo);
+    font-size: clamp(2rem, 9vw, 3.55rem);
+    font-weight: 700;
+    line-height: 1.04;
+    overflow-wrap: break-word;
+  }
+
+  .contato--pagina h1 {
+    max-width: 14ch;
+  }
+
+  .contato__descricao {
+    min-width: 0;
+    max-width: 640px;
+    margin: 18px 0 0;
+    color: var(--cor-neutro-700);
+    font-size: 1rem;
+    line-height: 1.7;
+    overflow-wrap: break-word;
+  }
+
+  .contato__acoes {
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .contato__botao {
+    max-width: 100%;
+    min-height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border-radius: 8px;
+    padding: 0 22px;
+    font-weight: 800;
+    text-align: center;
+    transition:
+      background 180ms ease,
+      border-color 180ms ease,
+      color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .contato__botao:hover {
+    transform: translateY(-1px);
+  }
+
+  .contato__botao--principal {
+    background: var(--cor-azul-900);
+    color: var(--cor-branco);
+    box-shadow: 0 12px 28px rgb(11 49 90 / 20%);
+  }
+
+  .contato__botao--principal:hover {
+    background: var(--cor-azul-800);
+  }
+
+  .contato__botao--secundario {
+    border: 1px solid var(--cor-azul-900);
+    background: var(--cor-branco);
+    color: var(--cor-azul-900);
+  }
+
+  .contato__botao--secundario:hover {
+    border-color: var(--cor-madeira-600);
+    color: var(--cor-madeira-600);
+  }
+
+  .contato__botao--instagram {
+    width: 50px;
+    flex: 0 0 50px;
+    border: 1px solid rgb(11 49 90 / 16%);
+    background: var(--cor-neutro-100);
+    padding: 0;
+    color: var(--cor-neutro-950);
+  }
+
+  .contato__botao--instagram:hover {
+    border-color: rgb(11 49 90 / 28%);
+    background: var(--cor-branco);
+    color: var(--cor-madeira-600);
+  }
+
+  .contato__informacoes {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 34px 0 0;
+    border-top: 1px solid rgb(11 49 90 / 12%);
+    border-bottom: 1px solid rgb(11 49 90 / 12%);
+  }
+
+  .contato__informacoes div {
+    min-width: 0;
+    padding: 18px 16px 18px 0;
+  }
+
+  .contato__informacoes div + div {
+    border-top: 1px solid rgb(11 49 90 / 10%);
+  }
+
+  .contato__informacoes dt {
+    color: var(--cor-azul-900);
+    font-weight: 900;
+    line-height: 1.2;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+  }
+
+  .contato__informacoes dd {
+    margin: 7px 0 0;
+    color: var(--cor-neutro-700);
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+
+  .contato__informacoes a {
+    color: var(--cor-neutro-950);
+    font-weight: 800;
+    text-decoration: underline;
+    text-decoration-color: rgb(184 117 62 / 42%);
+    text-underline-offset: 4px;
+    overflow-wrap: anywhere;
+  }
+
+  .contato__localizacao {
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgb(11 49 90 / 14%);
+    border-radius: var(--raio-card);
+    background: var(--cor-branco);
+    box-shadow: var(--sombra-suave);
+  }
+
+  .contato__mapa {
+    width: 100%;
+    min-height: 330px;
+    background: var(--cor-neutro-100);
+  }
+
+  .contato__mapa iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 330px;
+    border: 0;
+  }
+
+  .contato__mapa-detalhes {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    padding: 18px;
+    background: var(--cor-azul-900);
+    color: var(--cor-branco);
+  }
+
+  .contato__icone-local {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgb(255 255 255 / 24%);
+    border-radius: 8px;
+    background: rgb(255 255 255 / 10%);
+    color: var(--cor-foco);
+  }
+
+  .contato__mapa-detalhes div {
+    min-width: 0;
+    display: grid;
+    gap: 4px;
+  }
+
+  .contato__mapa-detalhes strong {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .contato__mapa-detalhes span {
+    color: rgb(255 255 255 / 72%);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+
+  .contato__mapa-detalhes > a {
+    grid-column: 1 / -1;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(255 255 255 / 38%);
+    border-radius: 8px;
+    padding: 0 16px;
+    color: var(--cor-branco);
+    font-weight: 800;
+    transition:
+      background 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .contato__mapa-detalhes > a:hover {
+    border-color: rgb(255 255 255 / 72%);
+    background: rgb(255 255 255 / 10%);
+  }
+
+  @media (max-width: 520px) {
+    .contato__conteudo {
+      padding: 56px 0;
+    }
+
+    .contato--pagina .contato__conteudo {
+      padding-top: 40px;
+    }
+
+    .contato__acoes {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 50px;
+    }
+
+    .contato__botao {
+      width: 100%;
+    }
+
+    .contato__botao--principal {
+      grid-column: 1 / -1;
+    }
+
+    .contato__botao--instagram {
+      width: 50px;
+    }
+
+    .contato__mapa,
+    .contato__mapa iframe {
+      min-height: 300px;
+    }
+  }
+
+  @media (min-width: 720px) {
+    .contato__informacoes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .contato__informacoes div:nth-child(even) {
+      padding-left: 18px;
+      border-left: 1px solid rgb(11 49 90 / 10%);
+    }
+
+    .contato__informacoes div:nth-child(2) {
+      border-top: 0;
+    }
+
+    .contato__mapa-detalhes {
+      grid-template-columns: 44px minmax(0, 1fr) auto;
+    }
+
+    .contato__mapa-detalhes > a {
+      grid-column: auto;
+    }
+  }
+
+  @media (min-width: 980px) {
+    .contato__conteudo {
+      grid-template-columns: minmax(0, 0.9fr) minmax(420px, 0.82fr);
+      align-items: center;
+      gap: clamp(40px, 5vw, 72px);
+      padding: 76px 0;
+    }
+
+    .contato--pagina .contato__conteudo {
+      min-height: calc(100dvh - var(--altura-cabecalho));
+      padding: 48px 0;
+    }
+
+    .contato h1,
+    .contato h2 {
+      max-width: 16ch;
+      font-size: clamp(2.75rem, 3.2vw, 3.65rem);
+      line-height: 1;
+    }
+
+    .contato__mapa,
+    .contato__mapa iframe {
+      min-height: 440px;
+    }
+  }
+</style>
