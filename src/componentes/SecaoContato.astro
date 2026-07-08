@@ -11,7 +11,7 @@ const { tituloPrincipal = false } = Astro.props;
 <section class:list={["contato", tituloPrincipal && "contato--pagina"]} id="contato" aria-labelledby="titulo-contato">
   <div class="contato__conteudo">
     <div class="contato__texto">
-      <p class="contato__chamada">Contato e orcamento</p>
+      <p class="contato__chamada">Contato e orçamento</p>
       {
         tituloPrincipal ? (
           <h1 id="titulo-contato">Fale com a Kazanova Sob Medida em Joinville.</h1>
@@ -20,8 +20,8 @@ const { tituloPrincipal = false } = Astro.props;
         )
       }
       <p class="contato__descricao">
-        Atendemos Joinville e regiao com moveis sob medida, fabricacao propria e projetos pensados para
-        o espaco real da sua casa. Envie uma mensagem pelo WhatsApp e conte qual ambiente voce quer fazer.
+        Atendemos Joinville e região com móveis sob medida, fabricação própria e projetos pensados para
+        o espaço real da sua casa. Envie uma mensagem pelo WhatsApp e conte qual ambiente você quer transformar.
       </p>
 
       <div class="contato__acoes" aria-label="Canais de contato da Kazanova Sob Medida">
@@ -54,7 +54,7 @@ const { tituloPrincipal = false } = Astro.props;
         </a>
       </div>
 
-      <dl class="contato__informacoes" aria-label="Informacoes de contato">
+      <dl class="contato__informacoes" aria-label="Informações de contato">
         <div>
           <dt>WhatsApp</dt>
           <dd>
@@ -68,7 +68,7 @@ const { tituloPrincipal = false } = Astro.props;
           </dd>
         </div>
         <div>
-          <dt>Endereco</dt>
+          <dt>Endereço</dt>
           <dd>{empresa.endereco}</dd>
         </div>
         <div>
@@ -79,7 +79,7 @@ const { tituloPrincipal = false } = Astro.props;
     </div>
 
     <div class="contato__localizacao">
-      <div class="contato__mapa" aria-label={`Mapa com localizacao da ${empresa.nome}`}>
+      <div class="contato__mapa" aria-label={`Mapa com localização da ${empresa.nome}`}>
         <iframe
           title={`Mapa da ${empresa.nome} em Joinville`}
           src={empresa.linkMapaEmbed}

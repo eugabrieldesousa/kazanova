@@ -20,15 +20,15 @@ const imagensAmbientes = {
     <div class="ambientes__cabecalho">
       <div>
         <p class="ambientes__chamada">Ambientes sob medida</p>
-        <h2 id="titulo-ambientes">Moveis para cada parte da sua casa.</h2>
+        <h2 id="titulo-ambientes">Móveis para cada espaço da sua casa.</h2>
       </div>
 
       <div class="ambientes__introducao">
         <p>
-          Da primeira ideia ate a instalacao, cada ambiente e planejado para unir beleza,
-          uso diario e acabamento de marcenaria propria em Joinville e regiao.
+          Da primeira ideia até a instalação, cada ambiente é planejado para unir beleza,
+          uso diário e acabamento de marcenaria própria em Joinville e região.
         </p>
-        <a href={empresa.linkWhatsappOrcamento} target="_blank" rel="noopener noreferrer">Solicitar orcamento</a>
+        <a href={empresa.linkWhatsappOrcamento} target="_blank" rel="noopener noreferrer">Solicitar orçamento</a>
       </div>
     </div>
 
@@ -58,7 +58,7 @@ const imagensAmbientes = {
                 <p>{ambiente.chamada}</p>
                 <h3>{ambiente.nome}</h3>
                 <span>{ambiente.resumo}</span>
-                <ul aria-label={`Solucoes para ${ambiente.nome}`}>
+                <ul aria-label={`Soluções para ${ambiente.nome}`}>
                   {ambiente.detalhes.map((detalhe) => <li>{detalhe}</li>)}
                 </ul>
               </div>

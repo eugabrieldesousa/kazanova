@@ -9,26 +9,26 @@ export const projetos = [
   },
   {
     nome: "Bancada com espelho iluminado",
-    ambiente: "Dormitorio sob medida",
+    ambiente: "Dormitório sob medida",
     imagem: "dormitorio-bancada",
     resumo:
-      "Bancada funcional com painel, nichos e espelho iluminado para aproveitar melhor o dormitorio.",
+      "Bancada funcional com painel, nichos e espelho iluminado para aproveitar melhor o dormitório.",
     detalhes: ["Bancada", "Espelho iluminado", "Painel"],
   },
   {
-    nome: "Cabeceira com iluminacao",
-    ambiente: "Dormitorio sob medida",
+    nome: "Cabeceira com iluminação",
+    ambiente: "Dormitório sob medida",
     imagem: "cabeceira-dormitorio",
     resumo:
-      "Cabeceira em madeira com apoio superior e iluminacao indireta para deixar o ambiente mais acolhedor.",
-    detalhes: ["Cabeceira", "Iluminacao indireta", "Apoio lateral"],
+      "Cabeceira em madeira com apoio superior e iluminação indireta para deixar o ambiente mais acolhedor.",
+    detalhes: ["Cabeceira", "Iluminação indireta", "Apoio lateral"],
   },
   {
-    nome: "Armario espelhado com prateleiras",
-    ambiente: "Dormitorio sob medida",
+    nome: "Armário espelhado com prateleiras",
+    ambiente: "Dormitório sob medida",
     imagem: "armario-espelhado",
     resumo:
-      "Armario com portas espelhadas e prateleiras iluminadas para ampliar a sensacao de espaco.",
+      "Armário com portas espelhadas e prateleiras iluminadas para ampliar a sensação de espaço.",
     detalhes: ["Portas espelhadas", "Prateleiras", "Acabamento em madeira"],
   },
 ] as const;

@@ -4,7 +4,7 @@ import logoKazanova from "../assets/imagens/logo-kazanova.png";
 import { empresa } from "@dados/empresa";
 
 const linksRodape = [
-  { texto: "Inicio", href: "/" },
+  { texto: "Início", href: "/" },
   { texto: "Sobre", href: "/#sobre" },
   { texto: "Ambientes", href: "/#ambientes" },
   { texto: "Projetos", href: "/#projetos" },
@@ -15,7 +15,7 @@ const linksRodape = [
 <footer class="rodape">
   <div class="rodape__conteudo">
     <div class="rodape__marca">
-      <a class="rodape__logo" href="/" aria-label={`${empresa.nome} - pagina inicial`}>
+      <a class="rodape__logo" href="/" aria-label={`${empresa.nome} - página inicial`}>
         <Image
           src={logoKazanova}
           alt="Kazanova Sob Medida"
@@ -26,16 +26,16 @@ const linksRodape = [
         />
       </a>
       <p>
-        Moveis sob medida em Joinville e regiao, com fabricacao propria, projetos personalizados
+        Móveis sob medida em Joinville e região, com fabricação própria, projetos personalizados
         e acabamento cuidadoso para cada ambiente.
       </p>
       <a class="rodape__cta" href={empresa.linkWhatsappOrcamento} target="_blank" rel="noopener noreferrer">
-        Solicitar orcamento
+        Solicitar orçamento
       </a>
     </div>
 
-    <nav class="rodape__navegacao" aria-label="Navegacao do rodape">
-      <h2>Navegacao</h2>
+    <nav class="rodape__navegacao" aria-label="Navegação do rodapé">
+      <h2>Navegação</h2>
       {linksRodape.map((link) => <a href={link.href}>{link.texto}</a>)}
     </nav>
 

@@ -5,9 +5,9 @@ import SecaoContato from "@componentes/SecaoContato.astro";
 import { empresa } from "@dados/empresa";
 import LayoutPrincipal from "../layouts/LayoutPrincipal.astro";
 
-const titulo = "Contato Kazanova Sob Medida | Moveis sob medida Joinville";
+const titulo = "Contato Kazanova Sob Medida | Móveis sob medida Joinville";
 const descricao =
-  "Fale com a Kazanova Sob Medida pelo WhatsApp e visite nossa marcenaria no Jardim Iririu, em Joinville.";
+  "Fale com a Kazanova Sob Medida pelo WhatsApp e visite nossa marcenaria em Nova Brasília, Joinville.";
 
 const dadosEstruturados = {
   "@context": "https://schema.org",
@@ -17,16 +17,10 @@ const dadosEstruturados = {
   telephone: empresa.telefoneWhatsapp,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "R. Tel\u00eamaco Borba - Jardim Iriri\u00fa",
+    streetAddress: "Servidão Marlene Lopes Bohn, Nova Brasília",
     addressLocality: empresa.cidade,
     addressRegion: empresa.estadoSigla,
-    postalCode: "89227-322",
     addressCountry: "BR",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: empresa.latitude,
-    longitude: empresa.longitude,
   },
   areaServed: `${empresa.regiaoAtendida}, ${empresa.estado}, Brasil`,
   sameAs: [empresa.linkInstagram],

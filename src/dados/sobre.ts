@@ -2,28 +2,28 @@ import { empresa } from "./empresa";
 
 export const sobreEmpresa = {
   chamada: "Sobre a Kazanova",
-  titulo: "Marcenaria sob medida com olhar local e fabricacao propria.",
+  titulo: "Projetos sob medida para dar vida ao seu estilo de morar.",
   descricao:
-    "A Kazanova Sob Medida atua em Joinville e regiao criando moveis personalizados para quem busca aproveitar melhor o espaco sem abrir mao de acabamento, funcionalidade e atendimento proximo.",
+    "A Kazanova Sob Medida atua em Joinville e região criando móveis personalizados para quem busca aproveitar melhor o espaço sem abrir mão de acabamento, funcionalidade e atendimento próximo.",
   complemento:
-    "Cada projeto parte da rotina do cliente: medidas, necessidades de uso, estilo do ambiente e detalhes que fazem diferenca no dia a dia. Da conversa inicial a instalacao, o foco e entregar moveis pensados para o seu espaco.",
+    "Cada projeto parte da rotina do cliente: medidas, necessidades de uso, estilo do ambiente e detalhes que fazem diferença no dia a dia. Da conversa inicial à instalação, o foco é entregar móveis pensados para o seu espaço.",
   destaques: [
     {
       valor: `${empresa.anosExperiencia} anos`,
-      rotulo: "fazendo moveis na medida do sonho do cliente",
+      rotulo: "fabricando móveis na medida do seu sonho",
     },
     {
-      valor: "Fabricacao propria",
-      rotulo: "mais controle sobre acabamento e execucao",
+      valor: "Fabricação própria",
+      rotulo: "mais controle sobre acabamento e execução",
     },
     {
       valor: empresa.regiaoAtendida,
-      rotulo: "atendimento proximo para projetos residenciais",
+      rotulo: "Atendimento personalizado para projetos residenciais e corporativos",
     },
   ],
   diferenciais: [
     "Projetos personalizados para cada ambiente",
-    "Aproveitamento inteligente de espaco",
-    "Condicoes de pagamento facilitadas",
+    "Aproveitamento inteligente de espaço",
+    "Condições de pagamento facilitadas",
   ],
 } as const;

@@ -46,12 +46,12 @@ const slotsIniciais = [
   data-palco-videos-projetos
 >
   <div class="videos-projetos__cabecalho">
-    <p class="videos-projetos__chamada">Videos dos projetos</p>
+    <p class="videos-projetos__chamada">Vídeos dos projetos</p>
     <h3 id="titulo-videos-projetos">Veja os detalhes de acabamento em movimento.</h3>
   </div>
 
   <div class="videos-projetos__janela">
-    <div class="videos-projetos__palco" aria-label="Videos de projetos reais">
+    <div class="videos-projetos__palco" aria-label="Vídeos de projetos reais">
       {
         slotsIniciais.map((slot) => {
           const video = videosComPoster[slot.indice];
@@ -79,7 +79,7 @@ const slotsIniciais = [
                   playsinline
                   width="720"
                   height="1280"
-                  aria-label={`Video do projeto: ${video.titulo}`}
+                  aria-label={`Vídeo do projeto: ${video.titulo}`}
                 />
               </div>
 
@@ -94,12 +94,12 @@ const slotsIniciais = [
       }
     </div>
 
-    <div class="videos-projetos__controles" aria-label="Controles dos videos">
+    <div class="videos-projetos__controles" aria-label="Controles dos vídeos">
       <button
         class="videos-projetos__seta videos-projetos__seta--anterior"
         type="button"
         data-palco-anterior
-        aria-label="Mostrar video anterior"
+        aria-label="Mostrar vídeo anterior"
       >
         <span aria-hidden="true">&lsaquo;</span>
       </button>
@@ -107,7 +107,7 @@ const slotsIniciais = [
         class="videos-projetos__seta videos-projetos__seta--proximo"
         type="button"
         data-palco-proximo
-        aria-label="Mostrar proximo video"
+        aria-label="Mostrar próximo vídeo"
       >
         <span aria-hidden="true">&rsaquo;</span>
       </button>
@@ -183,7 +183,7 @@ const slotsIniciais = [
       elementoVideo.pause();
       elementoVideo.src = video.arquivo;
       elementoVideo.poster = video.posterOtimizado;
-      elementoVideo.setAttribute("aria-label", `Video do projeto: ${video.titulo}`);
+      elementoVideo.setAttribute("aria-label", `Vídeo do projeto: ${video.titulo}`);
       elementoVideo.load();
 
       numero.textContent = String(indice + 1).padStart(2, "0");

@@ -7,7 +7,7 @@ import { itensNavegacao } from "@dados/navegacao";
 
 <header class="cabecalho">
   <div class="cabecalho__conteudo">
-    <a class="cabecalho__marca" href="/" aria-label={`${empresa.nome} - pagina inicial`}>
+    <a class="cabecalho__marca" href="/" aria-label={`${empresa.nome} - página inicial`}>
       <Image
         src={logoKazanova}
         alt="Kazanova Sob Medida"
@@ -18,24 +18,24 @@ import { itensNavegacao } from "@dados/navegacao";
       />
     </a>
 
-    <nav class="cabecalho__navegacao" aria-label="Navegacao principal">
+    <nav class="cabecalho__navegacao" aria-label="Navegação principal">
       {itensNavegacao.map((item) => <a href={item.href}>{item.texto}</a>)}
     </nav>
 
     <a class="cabecalho__cta" href={empresa.linkWhatsappOrcamento} target="_blank" rel="noopener noreferrer">
-      Solicitar orcamento
+      Solicitar orçamento
     </a>
 
     <details class="cabecalho__menu-mobile">
-      <summary aria-label="Abrir menu de navegacao">
+      <summary aria-label="Abrir menu de navegação">
         <span></span>
         <span></span>
         <span></span>
       </summary>
-      <nav aria-label="Navegacao mobile">
+      <nav aria-label="Navegação mobile">
         {itensNavegacao.map((item) => <a href={item.href}>{item.texto}</a>)}
         <a class="cabecalho__cta-mobile" href={empresa.linkWhatsappOrcamento} target="_blank" rel="noopener noreferrer">
-          Solicitar orcamento
+          Solicitar orçamento
         </a>
       </nav>
     </details>
