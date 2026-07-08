@@ -240,6 +240,60 @@ const imagensProjetos = {
     .projetos__introducao a {
       width: 100%;
     }
+
+    .projetos__grade {
+      gap: 16px;
+    }
+
+    .projetos__cartao {
+      min-height: clamp(350px, 96vw, 410px);
+      border-radius: 8px;
+    }
+
+    .projetos__cartao::after {
+      background:
+        linear-gradient(180deg, rgb(11 49 90 / 0%) 7%, rgb(11 49 90 / 62%) 45%, rgb(11 49 90 / 94%) 100%),
+        linear-gradient(90deg, rgb(11 49 90 / 72%) 0%, rgb(11 49 90 / 12%) 74%);
+    }
+
+    .projetos__informacoes {
+      padding: 16px 14px;
+    }
+
+    .projetos__informacoes p {
+      margin-bottom: 7px;
+      font-size: 0.68rem;
+      line-height: 1.1;
+    }
+
+    .projetos h3 {
+      max-width: 13ch;
+      font-size: clamp(1.32rem, 6.5vw, 1.62rem);
+      line-height: 1.05;
+    }
+
+    .projetos__informacoes span {
+      display: -webkit-box;
+      margin-top: 8px;
+      overflow: hidden;
+      font-size: 0.98rem;
+      line-height: 1.3;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+    }
+
+    .projetos__informacoes ul {
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .projetos__informacoes li {
+      max-width: 100%;
+      padding: 7px 9px;
+      font-size: 0.82rem;
+      line-height: 1.05;
+      overflow-wrap: anywhere;
+    }
   }
 
   @media (min-width: 720px) {

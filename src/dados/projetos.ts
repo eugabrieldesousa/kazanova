@@ -4,7 +4,7 @@ export const projetos = [
     ambiente: "Sala sob medida",
     imagem: "sala-painel",
     resumo:
-      "Painel de TV, rack e prateleiras em madeira para organizar a sala com acabamento integrado.",
+      "Painel de TV, rack e prateleiras em MDF para organizar a sala com acabamento integrado.",
     detalhes: ["Painel de TV", "Rack planejado", "Prateleiras"],
   },
   {
@@ -20,7 +20,7 @@ export const projetos = [
     ambiente: "Dormitório sob medida",
     imagem: "cabeceira-dormitorio",
     resumo:
-      "Cabeceira em madeira com apoio superior e iluminação indireta para deixar o ambiente mais acolhedor.",
+      "Cabeceira em MDF com apoio superior e iluminação indireta para deixar o ambiente mais acolhedor.",
     detalhes: ["Cabeceira", "Iluminação indireta", "Apoio lateral"],
   },
   {
@@ -29,6 +29,6 @@ export const projetos = [
     imagem: "armario-espelhado",
     resumo:
       "Armário com portas espelhadas e prateleiras iluminadas para ampliar a sensação de espaço.",
-    detalhes: ["Portas espelhadas", "Prateleiras", "Acabamento em madeira"],
+    detalhes: ["Portas espelhadas", "Prateleiras", "Acabamento em MDF"],
   },
 ] as const;

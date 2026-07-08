@@ -19,7 +19,7 @@ export const videosProjetos = [
   },
   {
     titulo: "Armário espelhado finalizado",
-    descricao: "Acabamento do armário com portas espelhadas e prateleiras em madeira.",
+    descricao: "Acabamento do armário com portas espelhadas e prateleiras em MDF.",
     arquivo: "/videos/4.mp4",
     poster: "armario-espelhado",
   },

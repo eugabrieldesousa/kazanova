@@ -22,6 +22,11 @@ const dadosEstruturados = {
     addressRegion: empresa.estadoSigla,
     addressCountry: "BR",
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: empresa.latitude,
+    longitude: empresa.longitude,
+  },
   areaServed: `${empresa.regiaoAtendida}, ${empresa.estado}, Brasil`,
   sameAs: [empresa.linkInstagram],
 };
